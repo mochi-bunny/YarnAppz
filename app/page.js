@@ -1,5 +1,39 @@
-'use client'
+'use client';
 import { useState } from 'react';
+
+// Recursive component to render JSON data in a readable format
+const RenderJson = ({ data }) => {
+  if (typeof data === 'string' || typeof data === 'number') {
+    return <p>{data}</p>;
+  }
+
+  if (Array.isArray(data)) {
+    return (
+      <ul>
+        {data.map((item, index) => (
+          <li key={index}>
+            <RenderJson data={item} />
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
+  if (typeof data === 'object' && data !== null) {
+    return (
+      <div style={{ marginLeft: '20px' }}>
+        {Object.entries(data).map(([key, value], index) => (
+          <div key={index} style={{ marginBottom: '10px' }}>
+            <strong>{key}:</strong>
+            <RenderJson data={value} />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return null;
+};
 
 export default function Home() {
   const [jobTitle, setJobTitle] = useState('');
@@ -59,13 +93,7 @@ export default function Home() {
       <div>
         {summary ? (
           <div style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ddd' }}>
-            <h2>{summary.job_title}</h2>
-            <p><strong>Description:</strong> {summary.job_description}</p>
-            <p><strong>Qualifications:</strong> {summary.qualification}</p>
-            <p><strong>Experience:</strong> {summary.experience}</p>
-            <p><strong>Salary Range:</strong> {summary.salary_range}</p>
-            <p><strong>Skills:</strong> {summary.skills}</p>
-            <p><strong>Responsibilities:</strong> {summary.responsibilities}</p>
+            <RenderJson data={summary} />
           </div>
         ) : (
           !loading && <p>No job descriptions found.</p>
@@ -74,3 +102,4 @@ export default function Home() {
     </main>
   );
 }
+
