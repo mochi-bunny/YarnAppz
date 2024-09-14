@@ -73,32 +73,46 @@ export default function Home() {
     }
   };
 
+
   return (
-    <main style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1>Job Description Finder</h1>
+    <main style={{ paddingTop:'10rem',fontFamily: 'Arial, sans-serif', 
+     display: 'flex', alignItems:'center', flexDirection:'column', whiteSpace: 'pre-wrap',
+     background :`url(https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDZneW5la3Q4am9hcWMzb3RuM2c2bHgwaGxzaWI2c3p5ZmdtZGw2eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FlodpfQUBSp20/giphy.webp)`,
+    
+     }}>
+    
+      <h1  style={{ padding: '20px'}}>Job Description Finder</h1>
+      <h3  style={{ padding: '20px', fontSize:'15px'}}>Enter your desired career to obtain the latest trends within the industry.</h3>
+      
       <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
+       
         <input
           type="text"
           value={jobTitle}
           onChange={(e) => setJobTitle(e.target.value)}
           placeholder="Enter job title"
-          style={{ padding: '10px', width: '300px', marginRight: '10px' }}
+          style={{ padding: '20px', width: '50rem', border:'2px solid', borderColor: 'wheat',borderRadius: '10px'  }}
           required
-        />
-        <button type="submit" style={{ padding: '10px 20px' }}>
+        />  <p style={{padding:'10px'}}></p> 
+         <div className='a'  style={{alignItems:'center', paddingLeft:'40%'}}>
+
+        <button type="submit" style={{  backgroundColor:'grey',padding: '10px 30px' ,borderRadius: '10px'}}>
           {loading ? 'Loading...' : 'Search'}
         </button>
+
+        </div>
+        
       </form>
       {error && <p style={{ color: 'red' }}>Error: {error}</p>}
-      <div>
+   
         {summary ? (
-          <div style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ddd' }}>
-            <RenderJson data={summary} />
+          <div style={{ marginBottom: '20px', padding: '20px', width: '50rem', border: '1px solid #ddd' }}>
+             < RenderJson data= {summary['Summary']} />
           </div>
         ) : (
-          !loading && <p>No job descriptions found.</p>
+          !loading && <p></p>
         )}
-      </div>
+     
     </main>
   );
 }

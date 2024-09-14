@@ -36,7 +36,7 @@ export async function POST(req){
     const data= await req.json() 
 
     const client = new GoogleGenerativeAI(
-        process.env.GEMINI_API // Ensure your API key is securely stored in environment variables
+        process.env.GEMINI_KEY // Ensure your API key is securely stored in environment variables
   );
   
 
